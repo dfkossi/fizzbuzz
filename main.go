@@ -6,8 +6,11 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 
-	"github.com/gorilla/mux"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 type Values struct {
@@ -46,9 +49,12 @@ func handlePost(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc("/", handlePost)
-	log.Fatal(http.ListenAndServe(":8080", router))
+	recordMetrics()
+
+	http.HandleFunc("/", handlePost)
+	http.Handle("/metrics", promhttp.Handler())
+
+	log.Fatal(http.ListenAndServe(":3000", nil))
 }
 
 func FizzBuzz2(val Values) string {
@@ -66,4 +72,20 @@ func FizzBuzz2(val Values) string {
 		result += ","
 	}
 	return result
+}
+
+var (
+	opsProcessed = promauto.NewCounter(prometheus.CounterOpts{
+		Name: "myapp_processed_ops_total",
+		Help: "The total number of processed events",
+	})
+)
+
+func recordMetrics() {
+	go func() {
+		for {
+			opsProcessed.Inc()
+			time.Sleep(2 * time.Second)
+		}
+	}()
 }
