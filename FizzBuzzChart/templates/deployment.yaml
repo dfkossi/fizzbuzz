@@ -17,6 +17,7 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
+        readinessProbe:
           httpGet:
             path: /
             port: {{ .Values.service.internalPort }}
