@@ -36,7 +36,7 @@ The goal is to implement a web server that will expose a REST API endpoint that:
 * Then use Postman to run by hunting: `http://localhost:{TCP Port}/` example`http://localhost:3000` 
 
 
-# Get endpoint statistics (metric documentation is also there: `https://prometheus.io/docs/introduction/overview/`):
+# Get endpoint statistics :
 * Use `http://localhost:{TCP Port}/metrics`to see the metrics(statistics); example `http://localhost:3000/metrics`
 
 # How to unit test the application 
