@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -29,14 +28,12 @@ func (a *App) Run(addr string) {
 func (a *App) initializeRoutes() {
 	a.Router.HandleFunc("/", a.handlePost).Methods("POST")
 	a.Router.Handle("/metrics", promhttp.Handler())
-
 }
 
 func (a *App) handlePost(output http.ResponseWriter, request *http.Request) {
 	var fizzbuzz FizzBuzz
 	decoder := json.NewDecoder(request.Body)
 	if err := decoder.Decode(&fizzbuzz); err != nil {
-		fmt.Println("test1")
 		respondWithError(output, http.StatusBadRequest, "Invalid request payload")
 		return
 	}
