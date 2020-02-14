@@ -10,14 +10,18 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
+//App is a representation of the application
 type App struct {
 	Router *mux.Router
 }
 
+//Initialize is to initialize the application
 func (a *App) Initialize() {
 	a.Router = mux.NewRouter()
 	a.initializeRoutes()
 }
+
+//Run is to run the application
 func (a *App) Run(addr string) {
 	log.Fatal(http.ListenAndServe(addr, a.Router))
 }

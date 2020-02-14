@@ -10,6 +10,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promauto"
 )
 
+//FizzBuzz is the struct representation of the input params
 type FizzBuzz struct {
 	Int1  int
 	Int2  int
