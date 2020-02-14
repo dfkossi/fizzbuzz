@@ -34,8 +34,9 @@ This endpoint:
 
 * Use command:  `kubectl get pods`to see if all the pods are running 
 
-* Then use Postman to run by hunting: `http://localhost:3000` 
+* Then use Postman to run by hunting: `http://localhost:{TCP Port}/` example`http://localhost:3000` 
 * use `http://localhost:3000/metrics`to see the metrics(statistics)
-* To run the tests of our application: 
+* To run the tests of our application in your local repository: 
 - `go test -run TestCreateFizzBuzz` or 
-- `go test -run TestMain`
+- `go test -run TestMain` or
+- `go test -v` to run all the tests
