@@ -39,7 +39,7 @@ The goal is to implement a web server that will expose a REST API endpoint that:
 # Get endpoint statistics (metric documentation is also there: `https://prometheus.io/docs/introduction/overview/`):
 * Use `http://localhost:{TCP Port}/metrics`to see the metrics(statistics); example `http://localhost:3000/metrics`
 
-# How to unit test the application (see main_test.go)
+# How to unit test the application 
 * To run the tests of our application in your local repository: 
 - `go test -run TestCreateFizzBuzz` or 
 - `go test -run TestMain` or
