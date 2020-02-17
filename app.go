@@ -39,7 +39,7 @@ func (a *App) handlePost(output http.ResponseWriter, request *http.Request) {
 	}
 	defer request.Body.Close()
 	result, err := fizzbuzz.createFizzBuzz()
-	if err == nil {
+	if err != nil || result == "" {
 		respondWithError(output, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -47,7 +47,7 @@ func (a *App) handlePost(output http.ResponseWriter, request *http.Request) {
 }
 
 func respondWithError(output http.ResponseWriter, code int, message string) {
-	respondWithJSON(output, code, map[string]string{"error": message})
+	respondWithJSON(output, code, message)
 }
 
 func respondWithJSON(output http.ResponseWriter, code int, payload interface{}) {
