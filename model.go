@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"time"
@@ -17,22 +16,6 @@ type FizzBuzz struct {
 	Limit int
 	Str1  string
 	Str2  string
-}
-
-func (f *FizzBuzz) makeFizzBuzzFromBytes(bytes []byte) FizzBuzz {
-	fizzBuzz := FizzBuzz{}
-	err := json.Unmarshal(bytes, &fizzBuzz)
-
-	if err != nil {
-		fmt.Println(err)
-		panic(err)
-	}
-	return fizzBuzz
-}
-func (f *FizzBuzz) makeBytesFromFizzBuzz(fizzBuzz FizzBuzz) []byte {
-	bytes, err := json.Marshal(fizzBuzz)
-	panic(err)
-	return bytes
 }
 
 func (f *FizzBuzz) createFizzBuzz() (string, error) {
