@@ -3,8 +3,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	"reflect"
-	"strconv"
 	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
@@ -43,12 +41,19 @@ func (f *FizzBuzz) createFizzBuzz() (string, error) {
 func (f *FizzBuzz) IsValid() error {
 	var errs error
 
-	if f.Int1 == 0 || f.Int2 == 0 {
-		errs = errors.New("Invalid integer format!")
+	if f.Int1 == 0 || f.Int2 == 0 || f.Limit == 0 {
+		errs = errors.New("Invalid integer format! The value can't be 0")
 	}
 	if f.Str1 == "" || f.Str2 == "" {
-		errs = errors.New("The field is required!")
+		errs = errors.New("The field is required! Can't be empty")
 	}
+	if f.Int1 > f.Int2 {
+		errs = errors.New("The value must be: Int2 > Int1 ")
+	}
+	if f.Int2 > f.Limit {
+		errs = errors.New("The value must be: Int2 < Limit ")
+	}
+
 	return errs
 }
 
@@ -67,37 +72,3 @@ func recordMetrics() {
 		}
 	}()
 }
-
-func checkInputType(f *FizzBuzz) bool {
-
-	allTypes := []string{"int", "int", "int", "string", "string"}
-
-	fmt.Println(strconv.Itoa(f.Int1))
-
-	tstObj := FizzBuzz{f.Int1, f.Int2, f.Limit, f.Str1, f.Str2}
-	val := reflect.ValueOf(&tstObj).Elem()
-	tab := []string{}
-
-	for i := 0; i < val.NumField(); i++ {
-		fieldType := val.Field(i)
-		tab = append(tab, fieldType.Type().String())
-	}
-	result := reflect.DeepEqual(allTypes, tab)
-	return result
-}
-
-/* func (f *FizzBuzz) checkInputType() bool {
-
-	allTypes := []string{"int", "int", "int", "string", "string"}
-	t := new(FizzBuzz)
-	tstObj := FizzBuzz{t.Int1, t.Int2, t.Limit, t.Str1, t.Str2}
-	val := reflect.ValueOf(&tstObj).Elem()
-	tab := []string{}
-
-	for i := 0; i < val.NumField(); i++ {
-		fieldType := val.Field(i)
-		tab = append(tab, fieldType.Type().String())
-	}
-	result := reflect.DeepEqual(allTypes, tab)
-	return result
-} */
