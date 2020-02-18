@@ -42,7 +42,7 @@ func (f *FizzBuzz) IsValid() error {
 	var errs error
 
 	if f.Int1 == 0 || f.Int2 == 0 || f.Limit == 0 {
-		errs = errors.New("Invalid integer format! The value can't be 0")
+		errs = errors.New("The value can't be 0")
 	}
 	if f.Str1 == "" || f.Str2 == "" {
 		errs = errors.New("The field is required! Can't be empty")
